@@ -60,15 +60,9 @@ python3 test_yesapi.py
 - ✅ API连接是否正常
 - ✅ 自然语言解析功能
 
-### 2. 交互式测试
-运行测试脚本后，可以选择进行交互式测试，输入自然语言命令测试功能：
-
-```
-获取我的表单模型列表
-查询用户表的数据，限制10条记录
-向订单表添加数据：{"name": "张三", "age": 25}
-更新产品表中ID为123的数据：{"price": 199.99}
-删除客户表中ID为456的记录
+### 2. 发布到Crawhub
+```bash
+clawhub publish . --name "YesApi 果创云低代码平台" --version "1.0.0" --tags "api,lowcode,yesapi,form,database"
 ```
 
 ### 3. 单元测试
