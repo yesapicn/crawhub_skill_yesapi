@@ -25,7 +25,8 @@
 - 数据新增
 - 数据更新
 - 数据删除
-- 批量操作
+- 批量更新
+- 批量删除
 
 ## 使用方法
 
@@ -41,7 +42,7 @@
 
 ### 创建新数据
 ```
-向表单 [表单名] 添加数据：{"field1": "value1", "field2": "value2"}
+向表单 [表单名] 添加新数据：{"field1": "value1", "field2": "value2"}
 ```
 
 ### 更新数据
@@ -54,21 +55,33 @@
 删除表单 [表单名] 中ID为 [记录ID] 的记录
 ```
 
+### 批量更新数据
+```
+批量更新表单 [表单名] 中满足条件的数据：{"field1": "new_value"}，指定条件where：[["字段名", "比较符", "比较值"]]
+```
+
+### 批量删除数据
+```
+批量删除表单 [表单名] 中满足条件的记录，指定条件where：[["字段名", "比较符", "比较值"]]
+```
+
 ## API 接口封装
 
 ### 表单结构接口
 基于 `App.Platform_MyModels` 接口封装：
-- `getModels()`: 获取模型列表
-- `createModel(modelData)`: 创建新模型
-- `updateModel(modelId, modelData)`: 更新模型
-- `deleteModel(modelId)`: 删除模型
+- `get_models()`: 获取模型列表
+- `create_model(model_name)`: 创建新模型
+- `delete_model(model_name)`: 删除模型
+- `add_model_new_field(model_name, field_data)`: 为模型添加新字段
 
 ### 表单数据接口
 基于 `App.Table` 系列接口封装：
-- `queryData(tableName, params)`: 查询数据
-- `insertData(tableName, data)`: 插入数据
-- `updateData(tableName, id, data)`: 更新数据
-- `deleteData(tableName, id)`: 删除数据
+- `query_data(model_name, params)`: 查询数据
+- `insert_data(model_name, data)`: 插入数据
+- `update_data(model_name, id, data)`: 更新数据
+- `delete_data(model_name, id)`: 删除数据
+- `batch_update(model_name, where, data)`: 批量更新数据
+- `batch_delete(model_name, where)`: 批量删除数据
 
 ## 错误处理
 

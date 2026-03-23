@@ -146,14 +146,6 @@ def main():
     else:
         print("\n⚠️  跳过API连接测试（未配置有效的API密钥）")
     
-    # 4. 测试Skill处理器
-    test_skill_handler()
-    
-    # 5. 交互式测试
-    print("\n是否进行交互式测试？(y/n): ", end="")
-    if input().lower() == 'y':
-        interactive_test()
-    
     print("\n测试完成！")
 
 if __name__ == "__main__":

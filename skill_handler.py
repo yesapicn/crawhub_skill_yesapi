@@ -75,41 +75,41 @@ class YesApiSkillHandler:
         except Exception as e:
             return {"error": f"未知错误: {str(e)}"}
     
-    def handle_data_request(self, action: str, table_name: str, 
+    def handle_data_request(self, action: str, model_name: str, 
                            params: Dict[str, Any] = None) -> Dict[str, Any]:
         """处理表单数据相关请求"""
         if not self._check_client():
             return {"error": "客户端未初始化"}
         
-        if not table_name:
+        if not model_name:
             return {"error": "缺少表名(model_name)"}
         
         try:
             if action == "query":
-                return self.client.query_data(table_name, **(params or {}))
+                return self.client.query_data(model_name, **(params or {}))
             elif action == "insert":
-                return self.client.insert_data(table_name, params or {})
+                return self.client.insert_data(model_name, params or {})
             elif action == "update":
                 record_id = params.pop("id", None)
                 if not record_id:
                     return {"error": "缺少记录ID"}
-                return self.client.update_data(table_name, record_id, params)
+                return self.client.update_data(model_name, record_id, params)
             elif action == "delete":
                 record_id = params.get("id")
                 if not record_id:
                     return {"error": "缺少记录ID"}
-                return self.client.delete_data(table_name, record_id)
+                return self.client.delete_data(model_name, record_id)
             elif action == "batch_update":
                 where = params.get("where", {})
                 data = params.get("data", {})
                 if not where or not data:
                     return {"error": "缺少 where 或 data 参数"}
-                return self.client.batch_update(table_name, where, data)
+                return self.client.batch_update(model_name, where, data)
             elif action == "batch_delete":
                 where = params.get("where", {})
                 if not where:
                     return {"error": "缺少 where 参数"}
-                return self.client.batch_delete(table_name, where)
+                return self.client.batch_delete(model_name, where)
             else:
                 return {"error": f"不支持的操作: {action}"}
         except YesApiError as e:
