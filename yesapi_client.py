@@ -172,7 +172,7 @@ class YesApiClient:
             "App.Table.Create",
             params=params,
             method="POST",
-            data=data
+            data={'data': json.dumps(data)}
         )
     
     def update_data(self, model_name: str, record_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
@@ -190,7 +190,7 @@ class YesApiClient:
             "App.Table.Update",
             params=params,
             method="POST",
-            data=data
+            data={'data': json.dumps(data)}
         )
     
     def delete_data(self, model_name: str, record_id: str) -> Dict[str, Any]:
@@ -214,10 +214,12 @@ class YesApiClient:
         """
         params = {
             'model_name': model_name,
-            'where': json.dumps(where),
-            'data': json.dumps(data)
         }
-        return self._make_request("App.Table.FreeUpdate", params=params)
+        return self._make_request("App.Table.FreeUpdate", 
+            params=params, 
+            method="POST", 
+            data={'where': json.dumps(where), 'data': json.dumps(data)}
+        )
     
     def batch_delete(self, model_name: str, where: Dict[str, Any]) -> Dict[str, Any]:
         """批量删除数据
@@ -226,10 +228,13 @@ class YesApiClient:
             where: 查询条件，字典格式，查询条件，需要JSON编码后传递。格式：where={"字段名1":"字段值1","字段名2":"字段值2"...}。
         """
         params = {
-            'model_name': model_name,
-            'where': json.dumps(where)
+            'model_name': model_name
         }
-        return self._make_request("App.Table.FreeDelete", params=params)
+        return self._make_request("App.Table.FreeDelete", 
+            params=params, 
+            method="POST", 
+            data={'where': json.dumps(where)}
+        )
 
 
 # 便捷函数
